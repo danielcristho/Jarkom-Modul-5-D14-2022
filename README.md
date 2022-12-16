@@ -8,6 +8,8 @@ Lapres Praktikum Jarkom Modul 5 Kelompok D-14
 
 ## Cara Pengerjaan
 
+### A & B
+
 Metode yang saya gunakan adalah **VLSM**. 
 <details>
 
@@ -187,5 +189,21 @@ iface eth0 inet static
         netmask 255.255.255.248
         gateway 192.192.7.137
 ```
+
+### C
+
+### Routing (Static)
+
+* Strix
+
+```bash
+route add -net 192.192.4.0 netmask 255.255.254.0 gw 192.192.7.146
+route add -net 192.192.7.128 netmask 255.255.255.248 gw 192.192.7.146
+route add -net 192.192.0.0 netmask 255.255.252.0 gw 192.192.7.150
+route add -net 192.192.7.0 netmask 255.255.255.128 gw 192.192.7.150
+route add -net 192.192.7.136 netmask 255.255.255.248 gw 192.192.7.150
+```
+
+### D
 
 
