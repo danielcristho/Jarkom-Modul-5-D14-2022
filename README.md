@@ -319,6 +319,16 @@ Pertama cek ip pada interface yang menuju ke internet, selanjutnya disini kita t
 iptables -t nat -A POSTROUTING -s 192.169.0.0/21 -o eth0 -j SNAT --to-source 192.168.122.222
 ```
 
+### Nomor 2
 
+Kalian diminta untuk melakukan drop semua TCP dan UDP dari luar Topologi kalian pada server yang merupakan DHCP Server demi menjaga keamanan.
+
+* Strix
+
+```bash
+iptables -A FORWARD -p tcp -d 192.192.7.142 -i eth0 -j DROP
+iptables -A FORWARD -p udp -d 192.192.7.142 -i eth0 -j DROP
+
+```
 
 
