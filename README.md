@@ -130,46 +130,6 @@ iface eth0 inet static
         gateway 192.192.7.129
 ```
 
-* BlackBell
-
-```bash
-auto eth0
-iface eth0 inet static
-        address 192.192.5.254
-        netmask 255.255.254.0
-        gateway 192.192.4.1
-```
-
-* Brian
-
-```bash
-auto eth0
-iface eth0 inet static
-        address 192.192.6.254
-        netmask 255.255.255.0
-        gateway 192.192.6.1
-```
-
-* Desmond
-
-```bash
-auto eth0
-iface eth0 inet static
-        address 192.192.3.254
-        netmask 255.255.252.0
-        gateway 192.192.0.1
-```
-
-* Forger
-
-```bash
-auto eth0
-iface eth0 inet static
-        address 192.192.7.126
-        netmask 255.255.255.128
-        gateway 192.192.7.1
-```
-
 * Eden
 
 ```bash
