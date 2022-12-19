@@ -202,8 +202,123 @@ route add -net 192.192.7.128 netmask 255.255.255.248 gw 192.192.7.146
 route add -net 192.192.0.0 netmask 255.255.252.0 gw 192.192.7.150
 route add -net 192.192.7.0 netmask 255.255.255.128 gw 192.192.7.150
 route add -net 192.192.7.136 netmask 255.255.255.248 gw 192.192.7.150
+route add -net 192.192.6.0 netmask 255.255.255.0 gw 192.192.7.146
 ```
 
 ### D
+
+### DNS
+
+* Eden
+
+* etc/bind/named.conf.options
+
+```bash
+options {
+        directory "/var/cache/bind";
+        forwarders {
+            192.168.122.1; // IP NAT
+        };
+        // dnssec-validation auto;
+        allow-query{any;};
+        auth-nxdomain no;    # conform to RFC1035
+        listen-on-v6 { any; };
+};
+```
+
+### Web Server
+
+* Garden&SSS
+
+```bash
+apt install apache2 -y
+```
+
+### DHCP
+
+* WISE (Server)
+
+* /etc/dhcp/dhcpd.conf
+
+```bash
+# Forger
+subnet 192.192.7.0 netmask 255.255.255.128 {
+    range 192.192.7.2 192.192.7.126;
+    option routers 192.192.7.1;
+    option broadcast-address 192.192.7.127;
+    option domain-name-servers 192.192.7.141;
+}
+
+subnet 192.192.7.136 netmask 255.255.255.248 {
+}
+
+# Desmond
+subnet 192.192.0.0 netmask 255.255.252.0 {
+    range 192.192.0.2 192.192.3.254;
+    option routers 192.192.0.1;
+    option broadcast-address 192.192.3.255;
+    option domain-name-servers 192.192.7.141;
+}
+
+#  BlackBell
+subnet 192.192.4.0 netmask 255.255.254.0 {
+    range 192.192.4.2 192.192.5.254;
+    option routers 192.192.4.1;
+    option broadcast-address 192.192.5.255;
+    option domain-name-servers 192.192.7.141;
+}
+
+#  Briar
+subnet 192.192.6.0 netmask 255.255.255.0 {
+    range 192.192.6.2 192.192.6.254;
+    option routers 192.192.6.1;
+    option broadcast-address 192.192.6.255;
+    option domain-name-servers 192.192.7.141;
+}
+```
+
+* /etc/default
+
+```bash
+INTERFACESv4="eth0"
+```
+
+* Ostania&Westalis
+
+* /etc/default
+
+```bash
+# What servers should the DHCP relay forward requests to?
+SERVERS="192.192.7.142"
+
+# On what interfaces should the DHCP relay (dhrelay) serve DHCP requests?
+INTERFACES="eth0 eth1 eth2 eth3"
+
+# Additional options that are passed to the DHCP relay daemon?
+OPTIONS=""
+```
+
+* Client
+
+* /etc/network/interfaces
+
+```bash
+auto eth0
+iface eth0 inet dhcp
+```
+
+### Nomor 1
+
+Agar topologi yang kalian buat dapat mengakses keluar, kalian diminta untuk mengkonfigurasi Strix menggunakan iptables, tetapi Loid tidak ingin menggunakan MASQUERADE.
+
+
+* Strix
+Pertama cek ip pada interface yang menuju ke internet, selanjutnya disini kita tidak menggunakan 'MASQUERADE' tapi 'SNAT' dengan source '192.168.122.222' (ip eth0 yang ke internet)
+
+```bash
+iptables -t nat -A POSTROUTING -s 192.169.0.0/21 -o eth0 -j SNAT --to-source 192.168.122.222
+```
+
+
 
 
