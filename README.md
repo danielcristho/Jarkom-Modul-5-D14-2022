@@ -171,7 +171,8 @@ route add -net 192.192.6.0 netmask 255.255.255.0 gw 192.192.7.146
 
 * Eden
 
-* etc/bind/named.conf.options
+**etc/bind/named.conf.options**
+
 
 ```bash
 options {
@@ -198,7 +199,7 @@ apt install apache2 -y
 
 * WISE (Server)
 
-* /etc/dhcp/dhcpd.conf
+**/etc/dhcp/dhcpd.conf**
 
 ```bash
 # Forger
@@ -245,7 +246,7 @@ INTERFACESv4="eth0"
 
 * Ostania&Westalis
 
-* /etc/default
+**/etc/default**
 
 ```bash
 # What servers should the DHCP relay forward requests to?
@@ -260,7 +261,7 @@ OPTIONS=""
 
 * Client
 
-* /etc/network/interfaces
+**/etc/network/interfaces**
 
 ```bash
 auto eth0
@@ -290,5 +291,3 @@ iptables -A FORWARD -p tcp -d 192.192.7.142 -i eth0 -j DROP
 iptables -A FORWARD -p udp -d 192.192.7.142 -i eth0 -j DROP
 
 ```
-
-
